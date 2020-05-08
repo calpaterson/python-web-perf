@@ -3,7 +3,7 @@ import psycopg2
 import psycopg2.pool
 from functools import lru_cache
 import json
-
+import random
 
 app = flask.Flask("gunicorn-perf")
 
@@ -18,10 +18,14 @@ def get_pool():
     return pool
 
 
+max_n = 1000_000 - 1
+
+
 def get_row():
     conn = get_pool().getconn()
     cursor = conn.cursor()
-    cursor.execute("select 1, 2;")
+    index = random.randint(1, max_n)
+    cursor.execute("select a, b from test where a = %s;", (index,))
     ((a, b),) = cursor.fetchall()
     cursor.close()
     get_pool().putconn(conn)
