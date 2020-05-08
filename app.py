@@ -35,4 +35,4 @@ def get_row():
 @app.route("/test")
 def test():
     a, b = get_row()
-    return json.dumps({"a": a, "b": b})
+    return json.dumps({"a": str(a).zfill(10), "b": b})

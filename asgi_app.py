@@ -24,7 +24,7 @@ async def homepage(request):
             await cursor.execute("select a, b from test where a = %s", (index,))
             ((a, b),) = await cursor.fetchall()
 
-    return JSONResponse({"a": a, "b": b})
+    return JSONResponse({"a": str(a).zfill(10), "b": b})
 
 
 routes = [
