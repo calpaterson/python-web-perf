@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-gunicorn -w `nproc` app:app
+gunicorn -w 8 app:app
