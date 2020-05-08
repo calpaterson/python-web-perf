@@ -1,13 +1,8 @@
-import flask
+import falcon
 import psycopg2
 import psycopg2.pool
-from functools import lru_cache
 import json
 import random
-
-app = flask.Flask("gunicorn-perf")
-
-pool = None
 
 def get_pool():
     global pool
@@ -31,7 +26,13 @@ def get_row():
     get_pool().putconn(conn)
     return a, b
 
-@app.route("/test")
-def test():
-    a, b = get_row()
-    return json.dumps({"a": str(a).zfill(10), "b": b})
+
+class ThingResource:
+    def on_get(self, req, resp):
+        resp.body = json.dumps({"a": str(a).zfill(10), "b": b})
+
+app = falcon.App()
+
+things = ThingResource()
+
+add.add_route("/test", things)

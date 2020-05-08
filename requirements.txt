@@ -8,3 +8,4 @@ aiopg~=1.0.0
 psycopg2~=2.8.5
 gevent~=20.5.0
 meinheld~=1.0.1
+falcon~=2.0.0
