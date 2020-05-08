@@ -1,4 +1,3 @@
-import aiosqlite
 import json
 from aiohttp import web
 import aiopg
