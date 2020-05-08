@@ -31,8 +31,8 @@ class ThingResource:
     def on_get(self, req, resp):
         resp.body = json.dumps({"a": str(a).zfill(10), "b": b})
 
-app = falcon.App()
+app = falcon.API()
 
 things = ThingResource()
 
-add.add_route("/test", things)
+app.add_route("/test", things)
