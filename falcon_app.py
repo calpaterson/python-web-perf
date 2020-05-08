@@ -4,6 +4,8 @@ import psycopg2.pool
 import json
 import random
 
+pool = None
+
 def get_pool():
     global pool
     if pool is None:
@@ -29,6 +31,7 @@ def get_row():
 
 class ThingResource:
     def on_get(self, req, resp):
+        a, b = get_row()
         resp.body = json.dumps({"a": str(a).zfill(10), "b": b})
 
 app = falcon.API()
