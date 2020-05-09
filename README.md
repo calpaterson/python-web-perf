@@ -14,8 +14,6 @@ The nginx configuration is included, which listens on port 8001.
 
 The servers are run from shell scripts.
 
-There is a makefile which runs a full build.
-
 ## $PWPWORKERS
 
 This variable controls how many workers are started.  Most of the async servers
