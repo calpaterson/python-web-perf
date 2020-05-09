@@ -2,14 +2,11 @@ from starlette.applications import Starlette
 from starlette.responses import JSONResponse
 from starlette.routing import Route
 
-from .async_db import get_row()
-
-pool = None
-
+from async_db import get_row
 
 
 async def homepage(request):
-    a, b = get_row()
+    a, b = await get_row()
     return JSONResponse({"a": str(a).zfill(10), "b": b})
 
 

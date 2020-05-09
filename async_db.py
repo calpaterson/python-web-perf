@@ -1,6 +1,8 @@
 import random
 import aiopg
 
+pool = None
+
 async def get_pool():
     global pool
     if pool is None:

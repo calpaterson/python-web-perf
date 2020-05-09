@@ -1,7 +1,7 @@
 import flask
 import json
 import random
-from .sync_db import get_row
+from sync_db import get_row
 
 app = flask.Flask("python-web-perf")
 
