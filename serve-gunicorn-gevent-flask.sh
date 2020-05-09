@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-gunicorn -w $PWPWORKERS app_flask:app --worker-class gunicorn.workers.ggevent.GeventWorker
+gunicorn --bind :8001 -w $PWPWORKERS app_flask:app --worker-class gunicorn.workers.ggevent.GeventWorker
