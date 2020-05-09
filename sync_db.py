@@ -1,11 +1,6 @@
-import flask
 import psycopg2
 import psycopg2.pool
-from functools import lru_cache
-import json
 import random
-
-app = flask.Flask("gunicorn-perf")
 
 pool = None
 
@@ -30,8 +25,3 @@ def get_row():
     cursor.close()
     get_pool().putconn(conn)
     return a, b
-
-@app.route("/test")
-def test():
-    a, b = get_row()
-    return json.dumps({"a": str(a).zfill(10), "b": b})

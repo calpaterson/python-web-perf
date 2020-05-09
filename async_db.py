@@ -1,11 +1,5 @@
-from starlette.applications import Starlette
-from starlette.responses import JSONResponse
-from starlette.routing import Route
-import aiopg
 import random
-
-pool = None
-
+import aiopg
 
 async def get_pool():
     global pool
@@ -16,20 +10,11 @@ async def get_pool():
 
 max_n = 1000_000 - 1
 
-async def homepage(request):
+async def get_row():
     pool = await get_pool()
     async with pool.acquire() as conn:
         async with conn.cursor() as cursor:
             index = random.randint(1, max_n)
             await cursor.execute("select a, b from test where a = %s", (index,))
             ((a, b),) = await cursor.fetchall()
-
-    return JSONResponse({"a": str(a).zfill(10), "b": b})
-
-
-routes = [
-    Route("/test", endpoint=homepage)
-]
-
-
-app = Starlette(routes=routes)
+    return a, b
