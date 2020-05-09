@@ -26,7 +26,9 @@ Except for Daphne - see below.
 
 Daphne doesn't have a front facing proxy and so requires nginx to do the load
 balancing.  Not a bad idea but means that to test it you need to edit nginx's
-conf and start multiple instances
+conf and start multiple instances.
+
+https://github.com/django/daphne/issues/79#issuecomment-278188287
 
 ## Slow ttys
 
