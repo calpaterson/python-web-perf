@@ -1,10 +1,9 @@
-import flask
+import bottle
 import json
+
 from sync_db import get_row
 
-app = flask.Flask("python-web-perf")
-
-pool = None
+app = bottle.Bottle()
 
 @app.route("/test")
 def test():
