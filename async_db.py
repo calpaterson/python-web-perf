@@ -7,7 +7,7 @@ async def get_pool():
     global pool
     if pool is None:
         pool = await aiopg.create_pool(
-            "dbname=test user=test password=test port=5432 host=127.0.0.1")
+            "dbname=test user=test password=test port=6432 host=127.0.0.1")
     return pool
 
 max_n = 1000_000 - 1
