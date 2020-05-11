@@ -3,17 +3,7 @@ from aiohttp import web
 import aiopg
 import random
 
-pool = None
-
-
-async def get_pool():
-    global pool
-    if pool is None:
-        pool = await aiopg.create_pool(
-            "dbname=test user=test password=test port=6432 host=127.0.0.1")
-    return pool
-
-max_n = 1000_000 - 1
+from async_db import get_row
 
 async def handle(request):
     pool = await get_pool()
