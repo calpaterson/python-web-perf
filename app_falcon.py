@@ -1,6 +1,5 @@
 import falcon
 import json
-import random
 
 from sync_db import get_row
 
