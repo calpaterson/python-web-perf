@@ -8,9 +8,12 @@ app = Sanic("python-web-perf")
 
 @app.route("/test")
 async def test(request):
-    # a, b = await get_row()
-    # return json({"a": str(a).zfill(10), "b": b})
+    a, b = await get_row()
+    return json({"a": str(a).zfill(10), "b": b})
 
+
+@app.route("/test2")
+async def test2(request):
     # Add some complexity to this baby, so async can shine.
     # Tried using pokeapi.co API, but got banned after a few tests.
     # 3 queries should be enough to prove a point.

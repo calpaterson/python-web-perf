@@ -11,10 +11,10 @@ def get_pool():
         pool = psycopg2.pool.SimpleConnectionPool(
             1,
             4,
-            database="test",
-            user="test",
-            password="test",
-            port=6432,
+            database="mydb",
+            user="myuser",
+            password="mypass",
+            port=5432,
             host="localhost",
         )
     return pool

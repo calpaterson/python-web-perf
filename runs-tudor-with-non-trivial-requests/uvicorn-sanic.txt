@@ -9,34 +9,34 @@ Server Software:        uvicorn
 Server Hostname:        127.0.0.1
 Server Port:            8001
 
-Document Path:          /test
+Document Path:          /test2
 Document Length:        133 bytes
 
 Concurrency Level:      100
-Time taken for tests:   326.143 seconds
-Complete requests:      100000
+Time taken for tests:   8.091 seconds
+Complete requests:      10000
 Failed requests:        0
-Total transferred:      25900000 bytes
-HTML transferred:       13300000 bytes
-Requests per second:    306.61 [#/sec] (mean)
-Time per request:       326.143 [ms] (mean)
-Time per request:       3.261 [ms] (mean, across all concurrent requests)
-Transfer rate:          77.55 [Kbytes/sec] received
+Total transferred:      2590000 bytes
+HTML transferred:       1330000 bytes
+Requests per second:    1235.89 [#/sec] (mean)
+Time per request:       80.913 [ms] (mean)
+Time per request:       0.809 [ms] (mean, across all concurrent requests)
+Transfer rate:          312.59 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   2.2      0     582
-Processing:     6  326 306.1    269    2530
-Waiting:        6  326 306.1    269    2530
-Total:          6  326 306.1    269    2530
+Connect:        0    0   0.7      0      42
+Processing:     2   80  95.8     49     770
+Waiting:        2   79  95.8     47     770
+Total:          2   80  95.9     49     770
 
 Percentage of the requests served within a certain time (ms)
-  50%    269
-  66%    469
-  75%    553
-  80%    609
-  90%    739
-  95%    857
-  98%   1007
-  99%   1125
- 100%   2530 (longest request)
+  50%     49
+  66%     70
+  75%     92
+  80%    109
+  90%    200
+  95%    288
+  98%    397
+  99%    477
+ 100%    770 (longest request)
