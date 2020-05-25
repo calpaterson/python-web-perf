@@ -1,0 +1,6 @@
+[all:vars]
+ansible_connection=ssh
+ansible_python_interpreter=/usr/bin/python3
+
+[personal]
+176.58.97.36

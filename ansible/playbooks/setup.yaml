@@ -1,0 +1,111 @@
+---
+- name: Setup test server
+  hosts: all
+  remote_user: root
+
+  vars:
+    db_name: mydb
+    db_user: myuser
+    db_password: mypass
+    db_table_name: test
+    repo_dir_name: python-web-perf
+    repo_url: git@github.com:tudormunteanu/python-web-perf.git
+    repo_branch: more-coroutines
+
+  tasks:
+    - name: Install apt packages
+      apt: 
+        pkg:
+          - postgresql
+          - git
+          - python3-pip
+          - tmux
+          - apache2-utils
+        state: latest
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Check if database exists
+      shell: psql -U postgres -lqt | cut -d \| -f 1 | grep -w {{ db_name }} | xargs echo -n
+      become: true
+      become_user: postgres
+      args:
+        chdir: /      
+      register: db_check_output
+
+    - name: Configure the user and database
+      command: psql -U postgres -c "{{item}}"
+      with_items:
+        - CREATE DATABASE {{ db_name }};
+        - CREATE USER {{ db_user }} WITH ENCRYPTED PASSWORD '{{ db_password }}';
+        - GRANT ALL PRIVILEGES ON DATABASE {{ db_name }} TO {{ db_user }};
+      become: true
+      become_user: postgres
+      args:
+        chdir: /
+      # Skip if database already created
+      when: db_check_output.stdout.find(db_name) == -1        
+
+    - name: Generate RSA SSH keys
+      openssh_keypair:
+        path: ~/.ssh/id_rsa
+      register: ssh_result
+
+    - name: Print SSH public keys
+      debug: 
+        msg: "{{ ssh_result.public_key }}"      
+
+    - name: Did you add the ssh public key on GitHub?
+      pause:
+        echo: yes
+
+    - name: Clone the repo
+      git:
+        repo: "{{ repo_url }}"
+        dest: "/tmp/{{ repo_dir_name }}"
+        version: "{{ repo_branch }}"
+        update: yes
+        accept_hostkey: yes
+
+    - name: Install pip requirements
+      shell: pip3 install -r requirements.txt
+      args:
+        chdir: "/tmp/{{ repo_dir_name }}"
+
+    - name: Generate test data
+      shell: python3 -m gen_test_data > test.csv
+      args:
+        chdir: "/tmp/{{ repo_dir_name }}"
+        creates:  "/tmp/{{ repo_dir_name }}/test.csv"
+    
+    - name: Check if table exists
+      shell: psql -U {{ db_user }} -d {{ db_name }} -h localhost -qt -c "\dt" | cut -d \| -f 2 | grep -w {{ db_table_name }} | xargs echo -n
+      environment:
+        PGPASSWORD: '{{ db_password }}'
+      register: db_table_check_output
+
+    - name: Create schema
+      shell: cat schema.sql | psql -U {{ db_user }} -d {{ db_name }} -h localhost
+      environment:
+        PGPASSWORD: '{{ db_password }}'      
+      args:
+        chdir: "/tmp/{{ repo_dir_name }}"
+      # Skip if database already created
+      when: db_table_check_output.stdout.find(db_table_name) == -1
+
+    - name: Check if table is populated
+      shell: psql -U {{ db_user }} -d {{ db_name }} -h localhost -qt -c "SELECT COUNT(*) FROM {{ db_table_name }};"
+      environment:
+        PGPASSWORD: '{{ db_password }}'      
+      args:
+        chdir: /      
+      register: db_table_row_count
+
+    - name: Populate table
+      shell: psql -U postgres -d {{ db_name }} -qt -c "COPY test(a,b) FROM '/tmp/{{ repo_dir_name }}/test.csv' DELIMITER ',' CSV HEADER;"
+      become: true
+      become_user: postgres        
+      args:
+        chdir: "/tmp/{{ repo_dir_name }}"
+      # Skip if database already populated
+      when: db_table_row_count.stdout.find("1000000") == -1

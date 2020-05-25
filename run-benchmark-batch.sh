@@ -1,7 +1,7 @@
 #!/usr/bin/env bash -x
 
 CONCURRENCY=100
-REQUEST_COUNT=10000
+REQUEST_COUNT=100000
 
 SERVERS=("uvicorn-sanic" "gunicorn-flask")
 ENDPOINT="/test2"
