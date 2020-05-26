@@ -1,9 +1,13 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env bash 
+
+set -x
 
 CONCURRENCY=100
 REQUEST_COUNT=100000
 
 SERVERS=("uvicorn-sanic" "gunicorn-flask")
+# ENDPOINT="/test"
+# OUTPUT_DIR="runs-tudor"
 ENDPOINT="/test2"
 OUTPUT_DIR="runs-tudor-with-non-trivial-requests"
 
@@ -13,11 +17,18 @@ do
 # Start the server
 PWPWORKERS=4 ./serve-"${SERVER}".sh > /dev/null 2>/dev/null &
 
-# random time. Figure out a more reliable way.
+# random time. TODO: Figure out a more reliable way.
 sleep 5
 
 # obtain pid of main proc
-LAST_PID=$(ps | grep "/Applications/Xcode.app/Contents" | awk 'NR==1{split($0, a); print a[1]}')
+# macOS
+if [[ "$OSTYPE" == "darwin19"* ]]; then
+  PROC_NAME="/Applications/Xcode.app/Contents"
+# debian (and maybe a few others)
+else
+  PROC_NAME="corn"
+fi
+LAST_PID=$(ps | grep $PROC_NAME | awk 'NR==1{split($0, a); print a[1]}')
 
 ab \
 -c $CONCURRENCY \
