@@ -12,3 +12,4 @@ falcon~=2.0.0
 sanic~=19.12.2
 bottle~=0.12.18
 daphne~=2.5.0
+fastapi~=0.58.0

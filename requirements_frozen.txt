@@ -1,4 +1,3 @@
--f /home/cal/.pip/wheelhouse/
 aiodns==2.0.0
 aiofiles==0.5.0
 aiohttp==3.6.2
@@ -22,6 +21,7 @@ cryptography==2.9.2
 daphne==2.5.0
 entrypoints==0.3
 falcon==2.0.0
+fastapi==0.58.0
 flake8==3.7.9
 Flask==1.1.2
 gevent==20.5.0
@@ -50,6 +50,7 @@ pyasn1-modules==0.2.8
 pycares==3.1.1
 pycodestyle==2.5.0
 pycparser==2.20
+pydantic==1.5.1
 pyflakes==2.1.1
 PyHamcrest==2.0.2
 pyOpenSSL==19.1.0
