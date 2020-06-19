@@ -13,4 +13,3 @@ sanic~=19.12.2
 bottle~=0.12.18
 daphne~=2.5.0
 fastapi~=0.58.0
-asyncpg~=0.20.1
