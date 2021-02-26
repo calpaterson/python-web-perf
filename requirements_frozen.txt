@@ -1,7 +1,7 @@
 -f /home/cal/.pip/wheelhouse/
 aiodns==2.0.0
 aiofiles==0.5.0
-aiohttp==3.6.2
+aiohttp==3.7.4
 aiopg==1.0.0
 aiosqlite==0.13.0
 asgiref==3.2.7
