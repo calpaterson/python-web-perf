@@ -65,7 +65,7 @@ ujson==2.0.3
 uvicorn==0.11.5
 uvloop==0.14.0
 uWSGI==2.0.18
-websockets==8.1
+websockets==9.1
 Werkzeug==1.0.1
 yarl==1.4.2
 zope.interface==5.1.0
