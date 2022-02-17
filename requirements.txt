@@ -9,6 +9,6 @@ psycopg2~=2.8.5
 gevent~=20.5.0
 meinheld~=1.0.1
 falcon~=2.0.0
-sanic~=19.12.2
+sanic~=20.12.6
 bottle~=0.12.18
 daphne~=2.5.0
