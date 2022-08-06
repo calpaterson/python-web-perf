@@ -54,7 +54,7 @@ pyflakes==2.1.1
 PyHamcrest==2.0.2
 pyOpenSSL==19.1.0
 rfc3986==1.4.0
-sanic==19.12.2
+sanic==20.12.7
 service-identity==18.1.0
 six==1.14.0
 sniffio==1.1.0
